@@ -16,7 +16,7 @@
 /*
  * Code to take an IRQ.
  */
-FUNC(irq_wrapper)
+FUNC(irq_handler)
 	/* lr starts off pointing at next instruction + 4 -- fix this. */
 	sub      lr, lr, #4
 
@@ -54,11 +54,11 @@ FUNC(irq_wrapper)
 	add      sp, sp, #-12
 
 	/* Set up r8 correctly with u-boot dispatch table. */
-	ldr      ip, =global_data
+	ldr      ip, =uboot_r8
 	ldr      r8, [ip]
 	
 	/* Call the IRQ handler in C. */
-	bl       irq_handler
+	bl       c_irq_handler
 	@mov      r0, sp
 	@mov      r1, #128
 	@bl       hexdump

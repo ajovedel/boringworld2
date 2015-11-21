@@ -1,0 +1,6 @@
+PROGS_REACT_OBJS := react.o
+PROGS_REACT_OBJS := $(PROGS_REACT_OBJS:%=$(TDIR)/react/%)
+ALL_OBJS += $(PROGS_REACT_OBJS)
+
+$(TDIR)/bin/react : $(TSTART) $(PROGS_REACT_OBJS) $(TLIBC)
+
