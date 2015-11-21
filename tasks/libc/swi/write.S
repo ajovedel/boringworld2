@@ -10,8 +10,19 @@
  */
 
 #include <asm.h>
+#include <bits/swi.h>
 
 	.file "write.S"
 
 FUNC(write)
-	@ Add code here.  Put your names at the top.
+	swi WRITE_SWI
+	cmp r0, #0	@verify return value
+	blt .ERR
+.RET:
+	mov pc, lr
+.ERR:
+	ldr r3, =errno		@get errno address
+	neg r0, r0			@2s complement of error number
+	str r0, [r3] 		@store error number in errno
+	mov r0, #-1			@return value is -1
+	b .RET				@return	

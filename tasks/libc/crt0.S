@@ -11,4 +11,5 @@
 	.file "crt0.S"
 
 FUNC(_start)
-	@ needs code.  Put your names at the top.
+	LDMFD 	sp!, {r0-r1}	@load argc and argv into r0 and r1
+	bl	main		@branch to user program

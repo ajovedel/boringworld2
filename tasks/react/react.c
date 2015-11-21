@@ -6,21 +6,25 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int main(int argc, char **argv){
+int main(int argc, char *argv[]){
 	
 	unsigned long start_time, elapsed_time;
 	unsigned integral_sec, decimal_sec;
 	char buffer[256];
 	
+	argc = argc;
+	argv = argv;
+
 	printf("Welcome to the reaction test!\n");
 	printf("We will measure how fast you can react to a message being randomly printed on the screen\n");
 	printf("When you see the message \"NOW!!!\", you must press [ENTER] as fast as you can\n");
 	printf("The time it took between the message and you pressing [ENTER] will be shown\n");
 	printf("Press enter to begin...\n");
 	read(STDIN_FILENO, buffer, 1);
-
+	printf("before while...\n");
 	while(1){
 
+		printf("test\n");
 		// random sleep between 0-10 seconds
 		sleep(time() % 10000);
 
