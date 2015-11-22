@@ -10,12 +10,15 @@
 #include <config.h>
 #include <bits/errno.h>
 #include <arm/timer.h>
+#include <arm/reg.h>
 #include <syscall.h>
+#include "../globals.h"
 
 
-unsigned long time_syscall(void)
+unsigned long time(void)
 {
- return 1; /* remove this line after adding your code here */	
+	return (TIME_UNITS_ELAPSED * TIME_RES_MS +
+           ((reg_read(OSTMR_OSCR_ADDR) / OS_CLK_SPEED) % TIME_RES_MS));	
 }
 
 
@@ -26,7 +29,17 @@ unsigned long time_syscall(void)
  *
  * 
  */
-void sleep_syscall(unsigned long millis  __attribute__((unused)))
+void sleep(unsigned long sleep_time  __attribute__((unused)))
 {
-	
+		unsigned long start_time, end_time;
+
+        // get current OSCR
+        start_time = reg_read(OSTMR_OSCR_ADDR);
+
+        // calculate time we sleep
+        end_time = start_time + (sleep_time * (TIME_RES_CYCLES * 0.1));
+
+        // sleep
+        while(reg_read(OSTMR_OSCR_ADDR) < end_time);
+
 }
