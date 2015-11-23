@@ -24,7 +24,6 @@
 
 int task_create(task_t* tasks , size_t num_tasks )
 {
-  printf("Inside task create\n");
   if(num_tasks > OS_AVAIL_TASKS)
   {
     return -EINVAL;
@@ -56,14 +55,15 @@ int task_create(task_t* tasks , size_t num_tasks )
   return 1; /* remove this line after adding your code */
 }
 
-int event_wait(unsigned int dev  __attribute__((unused)))
+int event_wait(unsigned int dev)
 {
-  printf("Inside event wait\n");
+  //printf("Inside event wait on device %d\n", dev);
   disable_interrupts();
   if(dev > NUM_DEVICES)
     return -EINVAL;
 
   dev_wait(dev);
+  //printf("Resuming from event wait on device %d\n",dev);
   return 0;
 }
 

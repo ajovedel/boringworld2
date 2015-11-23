@@ -13,30 +13,37 @@
 
 FUNC(swi_handler)
 
-	STMFD	sp!, {r0-r12, lr}		@store users GP registers and lr_svc in kernel stack
+  STMFD sp, {sp, lr}^       @Store User registers as these might change on witch
+  ADD   sp, sp, #-8
 
-	MRS	r1, spsr			@store svc sp at top of stack
-	STR	r1, [sp, #56]
+  ADD   sp, sp, #-4          @ For spsr
+	STMFD	sp!, {r0-r12, lr}		@Store users GP registers and lr_svc in kernel stack
 
-	MOV 	r1, sp				@r1 now contains pointer to parameters on stack
-	LDR 	r0, [lr, #-4]			@Extract SWI number
-	BIC	r0, r0, #0xFF000000
+	MRS	  r1, spsr			      @Store svc sp at top of stack
+	STR	  r1, [sp, #56]
 
-	LDR	r2, =uboot_r8			@restore uboot address
-	LDR	r8, [r2]
+	MOV 	r1, sp				      @r1 now contains pointer to parameters on stack
+	LDR 	r0, [lr, #-4]			  @Extract SWI number
+	BIC	  r0, r0, #0xFF000000
 
-	MRS	r3, cpsr			@enable IRQs
-	BIC	r3, #0x80
-	MSR	cpsr, r3
+	LDR	  r2, =uboot_r8			  @restore uboot address
+	LDR	  r8, [r2]
 
-	BL	c_swi_handler			@Call C_SWI_Handler and pass the SWI number
+	MRS	  r3, cpsr			      @enable IRQs
+	BIC	  r3, #0x80
+	MSR	  cpsr, r3
 
+	BL	  c_swi_handler			  @Call C_SWI_Handler and pass the SWI number
 
+	LDR	  r1, [sp, #56]			  @restore svc spsr
+	MSR	  spsr, r1
 
-	LDR	r1, [sp, #56]			@restore svc sp
-	MSR	spsr, r1
-
-	ADD 	sp, sp, #4			@add 4 bytes because we do not restore r0
+	ADD 	sp, sp, #4			    @add 4 bytes because we do not restore r0
 	LDMFD	sp!, {r1-r12, lr}		@restore users GP registers and lr_svc
-	MOVS 	pc, lr				@return to user program
+
+  ADD   sp, sp, #4          @ For spsr
+  LDMFD sp, {sp, lr}^       @Restore User lr and sp
+  ADD   sp, sp, #8
+
+	MOVS 	pc, lr				      @return to user program
 

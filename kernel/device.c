@@ -37,7 +37,7 @@ struct dev
 typedef struct dev dev_t;
 
 /* devices will be periodically signaled at the following frequencies */
-const unsigned long dev_freq[NUM_DEVICES] = {100, 200, 500, 50};
+const unsigned long dev_freq[NUM_DEVICES] = {200, 100, 500, 50};
 static dev_t devices[NUM_DEVICES];
 
 /**
@@ -61,7 +61,7 @@ void dev_init(void)
  *
  * @param dev  Device number.
  */
-void dev_wait(unsigned int dev __attribute__((unused)))
+void dev_wait(unsigned int dev )
 {
   disable_interrupts();
 
@@ -80,11 +80,10 @@ void dev_wait(unsigned int dev __attribute__((unused)))
   }
   else
   {
-    printf("Adding cur tcb to dev queue\n");
+    //printf("Adding cur tcb to dev queue\n");
     devices[dev].sleep_queue = tcb_cur;
   }
 
-  printf("Calling dispatch sleep\n");
   dispatch_sleep();
 
 }
@@ -104,18 +103,18 @@ void dev_update(unsigned long millis)
 
   tcb_t *tmp_tcb;
 
-  printf("Inside dev_update\n");
+  //printf("Inside dev_update\n");
   for(; i < NUM_DEVICES; i++)
   {
-    printf("Loop index: %d\n", i);
+    //printf("Loop index: %d\n", i);
     if(devices[i].next_match <= millis)
     {
-            printf("Matched also\n");
+          //  printf("Matched also\n");
       // We have a match
       tcb_q = devices[i].sleep_queue;
       while(tcb_q)
       {
-        printf("There's tcb queue\n");
+        //printf("There's tcb queue\n");
         runqueue_add(tcb_q, tcb_q->cur_prio);
         tmp_tcb = tcb_q;
         tcb_q = tcb_q->sleep_queue;

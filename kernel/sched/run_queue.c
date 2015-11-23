@@ -81,7 +81,7 @@ void runqueue_init(void)
  * only requirement is that the run queue for that priority is empty.  This
  * function needs to be externally synchronized.
  */
-void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
+void runqueue_add(tcb_t* tcb, uint8_t prio)
 {
   run_list[prio] = tcb;
   uint8_t prio_group = prio >> PRIO_BITS;
@@ -99,18 +99,23 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  *
  * This function needs to be externally synchronized.
  */
-tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
+tcb_t* runqueue_remove(uint8_t prio)
 {
-  uint8_t prio_group = prio >> PRIO_BITS;
-  uint8_t prio_off = prio & PRIO_OFFSET;
-  run_bits[prio_group] &= ~(1 << prio_off);
-	if(!run_bits[prio_group])
-  {
-    group_run_bits &= ~(1 << prio_group);
+  // Do not remove idle process
+  tcb_t *ret_tcb = run_list[prio];
+  if (prio != IDLE_PRIO)
+  {        
+    uint8_t prio_group = prio >> PRIO_BITS;
+    uint8_t prio_off = prio & PRIO_OFFSET;
+    run_bits[prio_group] &= ~(1 << prio_off);
+	  if(!run_bits[prio_group])
+    {
+      group_run_bits &= ~(1 << prio_group);
+    }
+  
+    run_list[prio] = (tcb_t *)0;
   }
   
-  tcb_t *ret_tcb = run_list[prio];
-  run_list[prio] = (tcb_t *)0;
   return ret_tcb;
 }
 
@@ -121,6 +126,8 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 uint8_t highest_prio(void)
 {
   uint8_t gr = prio_unmap_table[group_run_bits];
-  return (gr << 3 ) + (prio_unmap_table[run_bits[gr]]);
+  uint8_t highest = (gr << 3) + ( prio_unmap_table[run_bits[gr]]);
+  //printf("Highest is %d\n",highest);
+  return highest;
 
 }
