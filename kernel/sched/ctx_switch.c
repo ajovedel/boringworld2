@@ -26,9 +26,9 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
  * Set the initialization thread's priority to IDLE so that anything
  * will preempt it when dispatching the first task.
  */
-void dispatch_init(tcb_t* idle __attribute__((unused)))
+void dispatch_init(tcb_t* idle )
 {
-	
+  cur_tcb = idle;	
 }
 
 
@@ -42,7 +42,15 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-	
+  uint8_t prio = highest_prio();
+  tcb_t *next_task = runqueue_remove(prio);
+  
+  //Enqueue current task
+  runqueue_add(cur_tcb, cur_tcb->cur_prio);
+
+  tcb_t *tmp_task = cur_tcb;
+  cur_tcb = next_task;
+  ctx_switch_full(&(next_task->context), &(tmp_task->context));
 }
 
 /**
@@ -53,6 +61,13 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
+  uint8_t prio = highest_prio();
+  tcb_t *next_task = runqueue_remove(prio);
+
+  //Enqueue current task
+  runqueue_add(cur_tcb, cur_tcb->cur_prio);
+  cur_tcb = next_task;
+  ctx_switch_half(*(next_task->context));
 
 }
 
@@ -65,6 +80,12 @@ void dispatch_nosave(void)
  */
 void dispatch_sleep(void)
 {
+  uint8_t prio = highest_prio();
+  tcb_t *next_task = runqueue_remove(prio);
+  
+  tcb_t *tmp_task = cur_tcb;
+  cur_tcb = next_task;
+  ctx_switch_full(&(next_task->context), &(tmp_task->context));
 	
 }
 
@@ -73,7 +94,7 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
-	return 1; //fix this; dummy return to prevent compiler warning
+  return cur_tcb->cur_prio;
 }
 
 /**
@@ -81,5 +102,5 @@ uint8_t get_cur_prio(void)
  */
 tcb_t* get_cur_tcb(void)
 {
-	return (tcb_t *) 0; //fix this; dummy return to prevent compiler warning
+  return cur_tcb;
 }

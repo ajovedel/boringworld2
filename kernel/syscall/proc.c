@@ -22,14 +22,41 @@
 #include <arm/physmem.h>
 #include <device.h>
 
-int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
+int task_create(task_t* tasks , size_t num_tasks )
 {
+  if(num_tasks > OS_AVAIL_TASKS)
+  {
+    return -EINVAL;
+  }
+  if(!valid_addr(tasks, num_tasks * sizeof(task_t), USR_START_ADDR,
+                          USR_END_ADDR))
+  {
+    return -EFAULT;
+  }
+
+  // Init tcbs
+  allocate_tasks(&tasks, num_tasks);
+  dev_init();
+
+  dispatch_nosave();
+
+
+
+  
   return 1; /* remove this line after adding your code */
 }
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */	
+  if(dev > NUM_DEVICES)
+    return -EINVAL;
+
+ 
+
+  disable_interrupts();
+  
+  dev_wait(dev);
+  return 0;
 }
 
 /* An invalid syscall causes the kernel to exit. */

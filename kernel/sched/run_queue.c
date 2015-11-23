@@ -13,7 +13,8 @@
 #include <sched.h>
 #include "sched_i.h"
 
-
+#define PRIO_BITS 3
+#define PRIO_OFFSET 0x7
 
 static tcb_t* run_list[OS_MAX_TASKS]  __attribute__((unused));
 
@@ -58,7 +59,18 @@ static uint8_t prio_unmap_table[]  __attribute__((unused)) =
  */
 void runqueue_init(void)
 {
-	
+  int i = 0;
+  for(; i < OS_MAX_TASKS/8; i++)
+  {
+    run_bits[i] = 0;
+  }
+  group_run_bits = 0;
+
+  for(i = 0; i < OS_MAX_TASKS; i++)
+  {
+    run_list[i] = 0;
+  }
+
 }
 
 /**
@@ -71,7 +83,12 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
 {
-	
+  run_list[prio] = tcb;
+  uint8_t prio_group = prio >> PRIO_BITS;
+  uint8_t prio_off = prio & PRIO_OFFSET;
+  group_run_bits |= (1 << prio_group);
+  run_bits[prio_group] |= (1 << prio_off);
+
 }
 
 
@@ -84,7 +101,17 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
-	return (tcb_t *)1; // fix this; dummy return to prevent warning messages	
+  uint8_t prio_group = prio >> PRIO_BITS;
+  uint8_t prio_off = prio & PRIO_OFFSET;
+  run_bits[prio_group] &= ~(1 << prio_off);
+	if(!run_bits[prio_group])
+  {
+    group_run_bits &= ~(1 << prio_group);
+  }
+  
+  tcb_t *ret_tcb = run_list[prio];
+  run_list[prio] = (tcb_t *)0;
+  return ret_tcb;
 }
 
 /**
@@ -93,5 +120,7 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
  */
 uint8_t highest_prio(void)
 {
-	return 1; // fix this; dummy return to prevent warning messages	
+  uint8_t gr = prio_unmap_table[group_run_bits];
+  return (gr << 3 ) + (prio_unmap_table[run_bits[gr]])
+
 }
