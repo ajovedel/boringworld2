@@ -10,7 +10,7 @@
 #include <exports.h>
 #include <arm/timer.h>
 #include <arm/reg.h>
-#include "globals.h"
+#include <globals.h>
 
 void timer_setup(){
 

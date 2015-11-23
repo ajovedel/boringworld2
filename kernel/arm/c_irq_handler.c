@@ -13,7 +13,7 @@
 #include <arm/timer.h>
 #include <arm/reg.h>
 #include <arm/psr.h>
-#include "globals.h"
+#include <globals.h>
 
 /** @brief The C IRQ handler
  *

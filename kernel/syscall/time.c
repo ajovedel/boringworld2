@@ -12,7 +12,7 @@
 #include <arm/timer.h>
 #include <arm/reg.h>
 #include <syscall.h>
-#include "../globals.h"
+#include <globals.h>
 
 
 unsigned long time(void)

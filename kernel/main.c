@@ -13,7 +13,7 @@
 #include <sched.h>
 #include <device.h>
 #include <assert.h>
-#include "globals.h"
+#include <globals.h>
 
 uint32_t global_data;
 
