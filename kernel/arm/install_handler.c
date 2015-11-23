@@ -11,7 +11,7 @@
 
 
 #include <exports.h>
-#include "globals.h"
+#include <globals.h>
 
 #define LDR_POS_OPCODE    0xe59ff000u
 #define LDR_NEG_OPCODE    0xe51ff000u

@@ -8,7 +8,7 @@
  *  @bug No known bugs
  */
 #include <exports.h>
-#include "syscalls.h"
+#include <syscall.h>
 #include <bits/swi.h>
 
 /*  @brief The C SWI handler
