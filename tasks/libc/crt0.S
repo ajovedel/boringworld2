@@ -13,3 +13,6 @@
 FUNC(_start)
 	LDMFD 	sp!, {r0-r1}	@load argc and argv into r0 and r1
 	bl	main		@branch to user program
+
+inf_loop:			
+	b	inf_loop	@go to infinite loop if user returns
