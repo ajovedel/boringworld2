@@ -67,7 +67,7 @@ void dispatch_nosave(void)
   //Enqueue current task
   runqueue_add(cur_tcb, cur_tcb->cur_prio);
   cur_tcb = next_task;
-  ctx_switch_half(*(next_task->context));
+  ctx_switch_half(&(next_task->context));
 
 }
 

@@ -68,15 +68,15 @@ void dev_wait(unsigned int dev __attribute__((unused)))
   tcb_t *tcb_cur = get_cur_tcb();
   tcb_t* tcb_q = devices[dev].sleep_queue;
 
-  if(sleep_q)
+  if(tcb_q)
   {
     //XXX May be we can add a head, tail ptr to queue inorder
     //to make this quick ???
-    while(tcb_q->sleep_q)
+    while(tcb_q->sleep_queue)
     {
-      tcb_q = tcb_q->sleep_q;
+      tcb_q = tcb_q->sleep_queue;
     }
-    tcb_q->sleep_q = tcb_cur;
+    tcb_q->sleep_queue = tcb_cur;
   }
   else
   {
@@ -98,7 +98,7 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 void dev_update(unsigned long millis __attribute__((unused)))
 {
   int i = 0;
-  tcb_t *tcb_q = (tcb_q *)0;
+  tcb_t *tcb_q = (tcb_t *)0;
 
   tcb_t *tmp_tcb;
 
@@ -118,6 +118,12 @@ void dev_update(unsigned long millis __attribute__((unused)))
       }
       devices[i].next_match += dev_freq[i];
     }
+  }
+  // Check priority. Lower number means higher priority
+  if(get_cur_prio() > highest_prio())
+  {
+    // Switch context to higher priority task
+    dispatch_save();
   }
 }
 

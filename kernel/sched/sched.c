@@ -39,7 +39,7 @@ void initialize_idle()
 {
   tcb_t *idle_tcb = &(system_tcb[IDLE_PRIO]);
   idle_tcb->native_prio = IDLE_PRIO;
-  idle_tcb->device_prio = IDLE_PRIO;  
+  idle_tcb->cur_prio = IDLE_PRIO;  
 
   // Context
   sched_context_t *idle_ctx = &(idle_tcb->context);
@@ -51,9 +51,9 @@ void initialize_idle()
   idle_ctx->r9 = 0;
   idle_ctx->r10 = 0;
   idle_ctx->r11 = 0;
-  idle_ctx->sp = (uint32_t)((char *)(idle_tcb->kstack) + OS_KSTACK_SIZE);
+  idle_ctx->sp = ((char *)(idle_tcb->kstack) + OS_KSTACK_SIZE);
   //XXX What about using kstack_high ??
-  idle_ctx->lr = (uint32_t)launch_task;
+  idle_ctx->lr = (void *)launch_task;
   
   idle_tcb->holds_lock = 0;
   idle_tcb->sleep_queue = (tcb_t *)0;
@@ -76,23 +76,23 @@ void initialize_idle()
 void allocate_tasks(task_t** tasks, size_t num_tasks)
 {
 
-  int i = 0;
+  size_t i = 0;
   for(; i < num_tasks; i++)
   {
     //XXX Check lamda and others for valid address ranges
-    tcb_t *idle_tcb = &(system_tcb[i]);
-    idle_tcb->native_prio = i;
-    idle_tcb->device_prio = i;  
+    tcb_t *task_tcb = &(system_tcb[i]);
+    task_tcb->native_prio = i;
+    task_tcb->cur_prio = i;  
 
     // Context
-    sched_context_t *ctx = &(idle_tcb->context);
+    sched_context_t *ctx = &(task_tcb->context);
     ctx->r4 = (uint32_t) (tasks[i]->lambda);
     ctx->r5 = (uint32_t) (tasks[i]->data);
-    ctx->r6 = (uint32_t) (tasks[i]->sp);
+    ctx->r6 = (uint32_t) (tasks[i]->stack_pos);
     ctx->r8 = global_data;
-    ctx->sp = (uint32_t)((char *)(ctx->kstack) + OS_KSTACK_SIZE);
+    ctx->sp = ((char *)(task_tcb->kstack) + OS_KSTACK_SIZE);
     // Easy way to launch task fo first time
-    ctx->lr = (uint32_t)launch_task;
+    ctx->lr = (void *)launch_task;
 
   }
 
