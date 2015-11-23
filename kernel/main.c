@@ -61,7 +61,6 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
 	// call user program
 	call_user(argc, argv);
 
-	
 	// restore SWI handler
 	*swi_install_addr = swi_saved_inst[0];
 	*(swi_install_addr + 1) = swi_saved_inst[1];
