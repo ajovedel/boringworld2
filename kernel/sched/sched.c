@@ -31,6 +31,8 @@ void sched_init(task_t* main_task  __attribute__((unused)))
  
 static void __attribute__((unused)) idle(void)
 {
+        while(1);
+   printf("Dooof\n");
 	 enable_interrupts();
 	 while(1);
 }
@@ -43,7 +45,7 @@ void initialize_idle()
 
   // Context
   sched_context_t *idle_ctx = &(idle_tcb->context);
-  idle_ctx->r4 = (uint32_t)idle;
+  idle_ctx->r4 = (uint32_t)&idle;
   idle_ctx->r5 = 0;
   idle_ctx->r6 = 0;
   idle_ctx->r7 = 0;
@@ -75,7 +77,6 @@ void initialize_idle()
  */
 void allocate_tasks(task_t** tasks, size_t num_tasks)
 {
-
   size_t i = 0;
   for(; i < num_tasks; i++)
   {
@@ -87,6 +88,7 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
     // Context
     sched_context_t *ctx = &(task_tcb->context);
     ctx->r4 = (uint32_t) (tasks[i]->lambda);
+
     ctx->r5 = (uint32_t) (tasks[i]->data);
     ctx->r6 = (uint32_t) (tasks[i]->stack_pos);
     ctx->r8 = global_data;
@@ -94,11 +96,15 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
     // Easy way to launch task fo first time
     ctx->lr = (void *)launch_task;
 
+    task_tcb->holds_lock = 0;
+    task_tcb->sleep_queue = (tcb_t *)0;
+
   }
 
   initialize_idle();
   runqueue_init();
   
+  runqueue_add(&(system_tcb[IDLE_PRIO]), IDLE_PRIO);
   for(i=0; i < num_tasks; i++)
   {
     runqueue_add(&(system_tcb[i]), i);

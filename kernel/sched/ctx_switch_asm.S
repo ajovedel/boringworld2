@@ -30,7 +30,7 @@ FUNC(launch_task)
 	mov     r2, #0
 	mov     r3, #0
 	mov     r5, #0
-	mov     r8, #0
+	@mov     r8, #0
 	mov     ip, #0
 	msr     cpsr_c, #(PSR_MODE_USR)
 	mov     sp, r6
@@ -46,7 +46,6 @@ FUNC(ctx_switch_full)
 
   @Load target context
   ldmia r0, {r4-r11, sp, lr}
-
   mov pc, lr
 
 

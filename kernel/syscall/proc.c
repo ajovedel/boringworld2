@@ -24,6 +24,7 @@
 
 int task_create(task_t* tasks , size_t num_tasks )
 {
+  printf("Inside task create\n");
   if(num_tasks > OS_AVAIL_TASKS)
   {
     return -EINVAL;
@@ -35,26 +36,33 @@ int task_create(task_t* tasks , size_t num_tasks )
   }
 
   // Init tcbs
-  allocate_tasks(&tasks, num_tasks);
+  disable_interrupts();
+
+  task_t **task_ptrs = malloc(num_tasks * sizeof(task_t*));
+  if(!task_ptrs)
+    return -EFAULT; // XXX Some different error ??
+
+  size_t i = 0;
+  for(; i < num_tasks; i++)
+  {
+    task_ptrs[i] = tasks + i;
+  }
+
+  allocate_tasks(task_ptrs, num_tasks);
   dev_init();
 
   dispatch_nosave();
-
-
-
   
   return 1; /* remove this line after adding your code */
 }
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
+  printf("Inside event wait\n");
+  disable_interrupts();
   if(dev > NUM_DEVICES)
     return -EINVAL;
 
- 
-
-  disable_interrupts();
-  
   dev_wait(dev);
   return 0;
 }

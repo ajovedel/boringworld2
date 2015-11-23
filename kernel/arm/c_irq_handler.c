@@ -14,6 +14,7 @@
 #include <arm/reg.h>
 #include <arm/psr.h>
 #include <globals.h>
+#include <device.h>
 
 /** @brief The C IRQ handler
  *
@@ -37,6 +38,7 @@ void c_irq_handler(){
 		reg_set(OSTMR_OSSR_ADDR, OSTMR_OSSR_M0);
 
 		TIME_UNITS_ELAPSED += 1;
+    dev_update(time());
 	}
 	
 	// if another type of interrupt has ocurred, we ignore it

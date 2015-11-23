@@ -24,6 +24,7 @@ unsigned c_swi_handler(unsigned SWI_number, unsigned *regs){
 
 	unsigned return_code = 0;
 
+
 	switch(SWI_number){
 
 		// call read syscall
@@ -45,6 +46,14 @@ unsigned c_swi_handler(unsigned SWI_number, unsigned *regs){
 		case SLEEP_SWI:
 			sleep((unsigned long)regs[0]);
 			break;
+
+    case CREATE_SWI:
+      return task_create((task_t *)regs[0], (size_t)regs[1]);
+      break;
+
+    case EVENT_WAIT:
+      return event_wait((unsigned)regs[0]);
+      break;
 
 		// unknown SWI code
 		default:

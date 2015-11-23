@@ -80,9 +80,11 @@ void dev_wait(unsigned int dev __attribute__((unused)))
   }
   else
   {
+    printf("Adding cur tcb to dev queue\n");
     devices[dev].sleep_queue = tcb_cur;
   }
 
+  printf("Calling dispatch sleep\n");
   dispatch_sleep();
 
 }
@@ -95,30 +97,35 @@ void dev_wait(unsigned int dev __attribute__((unused)))
  * interrupt corresponded to the interrupt frequency of a device, this 
  * function should ensure that the task is made ready to run 
  */
-void dev_update(unsigned long millis __attribute__((unused)))
+void dev_update(unsigned long millis)
 {
   int i = 0;
   tcb_t *tcb_q = (tcb_t *)0;
 
   tcb_t *tmp_tcb;
 
-
+  printf("Inside dev_update\n");
   for(; i < NUM_DEVICES; i++)
   {
+    printf("Loop index: %d\n", i);
     if(devices[i].next_match <= millis)
     {
+            printf("Matched also\n");
       // We have a match
       tcb_q = devices[i].sleep_queue;
       while(tcb_q)
       {
+        printf("There's tcb queue\n");
         runqueue_add(tcb_q, tcb_q->cur_prio);
         tmp_tcb = tcb_q;
         tcb_q = tcb_q->sleep_queue;
         tmp_tcb->sleep_queue = (tcb_t *)0;
       }
+      //printf("Updatig  next match\n");
       devices[i].next_match += dev_freq[i];
     }
   }
+ // printf("Priotiy stuff\n");
   // Check priority. Lower number means higher priority
   if(get_cur_prio() > highest_prio())
   {

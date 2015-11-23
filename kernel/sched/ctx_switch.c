@@ -81,10 +81,24 @@ void dispatch_nosave(void)
 void dispatch_sleep(void)
 {
   uint8_t prio = highest_prio();
+  printf("Highest prio is %d\n",prio);
   tcb_t *next_task = runqueue_remove(prio);
   
   tcb_t *tmp_task = cur_tcb;
+  
   cur_tcb = next_task;
+  
+  printf("Current task, prio:%d\n",tmp_task->cur_prio);
+  printf("next task, prio:%d\n",cur_tcb->cur_prio);
+
+  printf("Next task, r4 is: 0x%x\n",cur_tcb->context.r4);
+  printf("Next task, lr is: 0x%x\n",(uint32_t)cur_tcb->context.lr);
+
+  printf("Context switchin gufll\n");
+  
+
+
+
   ctx_switch_full(&(next_task->context), &(tmp_task->context));
 	
 }

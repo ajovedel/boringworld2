@@ -52,6 +52,9 @@ int main(int argc, char** argv)
 	tasks[1].C = 1;
 	tasks[1].T = PERIOD_DEV1;
 
+  printf("l1: 0x%x\n",(uint32_t)(tasks[0].lambda));
+  printf("l2: 0x%x\n",(uint32_t)(tasks[1].lambda));
+
 	task_create(tasks, 2);
 	argc=argc; /* remove compiler warning */
 	argv[0]=argv[0]; /* remove compiler warning */
