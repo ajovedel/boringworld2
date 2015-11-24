@@ -12,6 +12,7 @@
 #include <task.h>
 #include <sched.h>
 #include <device.h>
+#include <syscall.h>
 #include <arm/reg.h>
 #include <arm/psr.h>
 #include <arm/exception.h>
@@ -49,7 +50,7 @@ void dev_init(void)
   for(; i < NUM_DEVICES; i++)
   {
     devices[i].sleep_queue = (tcb_t *)0;
-    //XXX Set devices[i].next_match = get_current_time() + dev_freq[i];
+    devices[i].next_match = time() + dev_freq[i];
 
   }
 }
