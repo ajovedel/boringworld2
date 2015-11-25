@@ -63,11 +63,12 @@ int mutex_create(void)
 	return i;
 }
 
+/*
+ * @brief Acquire the indicated mutex
+ */
 int mutex_lock(int mutex  __attribute__((unused)))
 {
 	disable_interrupts();
-
-	int i = 0;
 
 	// check mutex id is valid
 	if(!(mutex >= 0 && mutex <= OS_NUM_MUTEX)){
@@ -75,8 +76,10 @@ int mutex_lock(int mutex  __attribute__((unused)))
 		return -EINVAL;
 	}
 
+	mutex_t *cur_mutex = &(gtMutex[mutex]);
+
 	// check if mutex has been created before
-	if(gtMutex[mutex].bAvailable == 1){
+	if(cur_mutex->bAvailable == 1){
 		enable_interrupts();
 		return -EINVAL;
 	}
@@ -84,26 +87,45 @@ int mutex_lock(int mutex  __attribute__((unused)))
 	tcb_t *cur_tcb = get_cur_tcb();
 
 	// check that the current task NOT holding the lock already
-	if(cur_tcb == gtMutex[mutex].pHolding_Tcb){
+	if(cur_tcb == cur_mutex->pHolding_Tcb){
 		enable_interrupts();
 		return -EDEADLOCK;
 	}
 
 	// check if other task has locked the mutex
-	if(gtMutex[mutex].bLock == 1){
+	if(cur_mutex->bLock == 1){
 
 		// add lock to the end of the mutex sleep queue
-		tcb_t *next_tcb = gtMutex[mutex].pSleep_queue; 
-		while(next_tcb != NULL)
-			i++;
+		tcb_t *tmp_tcb = cur_mutex->pSleep_queue;
 
-		gtMutex[mutex].pSleep_queue + i = cur_tcb;
-	
-		// send current task to sleep
+		// add lock to beginning of sleep queue
+		if(cur_mutex->pSleep_queue == NULL)
+			cur_mutex->pSleep_queue = cur_tcb;
+		
+		// add lock to next empty space on the sleep queue
+		else{
+			while(tmp_tcb->sleep_queue != NULL)
+				tmp_tcb = tmp_tcb->sleep_queue;
+			
+			tmp_tcb->sleep_queue = cur_tcb;
+		}
+
+		// sleep queue of the current TCB is the tail
+		cur_tcb->sleep_queue = NULL;
+
+		// send current task to sleep 
 		dispatch_sleep();
 	}
 
-	return 1;
+	// other tasks do not have this mutex
+	// we can acquire this mutex for the current tcb
+	cur_mutex->bLock = 1;
+	cur_mutex->pHolding_Tcb = cur_tcb;
+	cur_tcb->holds_lock = 1;	//do i need to set holds_lock? what for?
+	
+	enable_interrupts();
+
+	return 0;
 }
 
 int mutex_unlock(int mutex  __attribute__((unused)))
