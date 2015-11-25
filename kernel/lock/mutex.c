@@ -40,7 +40,7 @@ void mutex_init()
 }
 
 /*
- * @brief return next available mutex
+ * @brief Acquire next available mutex
  */
 int mutex_create(void)
 {
@@ -64,7 +64,7 @@ int mutex_create(void)
 }
 
 /*
- * @brief Acquire the indicated mutex
+ * @brief Lock the indicated mutex
  */
 int mutex_lock(int mutex  __attribute__((unused)))
 {
