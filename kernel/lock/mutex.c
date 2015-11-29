@@ -54,8 +54,10 @@ int mutex_create(void)
 			break;
 	
 	// no mutex available
-	if(i == OS_NUM_MUTEX)
+	if(i == OS_NUM_MUTEX){
+        enable_interrupts();
 		return -ENOMEM;
+    }
 
 	// we use this mutex!
 	gtMutex[i].bAvailable = 0;
