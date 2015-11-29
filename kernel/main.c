@@ -14,6 +14,7 @@
 #include <device.h>
 #include <assert.h>
 #include <globals.h>
+#include <lock.h>
 
 uint32_t global_data;
 
@@ -56,7 +57,10 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
 	interrupt_setup();
 
 	// setup timer
-	timer_setup();
+    timer_setup();
+
+    // initialize mutexes
+    mutex_init();
 
 	// call user program
 	call_user(argc, argv);
