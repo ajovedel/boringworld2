@@ -68,13 +68,13 @@ int mutex_create(void)
  */
 int mutex_lock(int mutex  __attribute__((unused)))
 {
-	disable_interrupts();
 
 	// check mutex id is valid
 	if(!(mutex >= 0 && mutex <= OS_NUM_MUTEX)){
-		enable_interrupts();
 		return -EINVAL;
 	}
+
+  disable_interrupts();
 
 	mutex_t *cur_mutex = &(gtMutex[mutex]);
 
@@ -110,24 +110,25 @@ int mutex_lock(int mutex  __attribute__((unused)))
 			tmp_tcb->sleep_queue = cur_tcb;
 		}
 
-		// sleep queue of the current TCB is the tail
-		cur_tcb->sleep_queue = NULL;
 
 		// send current task to sleep 
 		dispatch_sleep();
 	}
 
-	// other tasks do not have this mutex
-	// we can acquire this mutex for the current tcb
-	cur_mutex->bLock = 1;
-	cur_mutex->pHolding_Tcb = cur_tcb;
-	cur_tcb->holds_lock = 1;	//do i need to set holds_lock? what for?
+  else
+  {
+	  // other tasks do not have this mutex
+	  // we can acquire this mutex for the current tcb
+	  cur_mutex->bLock = 1;
+		cur_tcb->sleep_queue = NULL;
+	  cur_mutex->pHolding_Tcb = cur_tcb;
+	  cur_tcb->holds_lock = 1;	//do i need to set holds_lock? what for?
 
-	// part 2 stuff - PRIORITY INVERSION!!
-	// 	1. find highest priority task in sleep queue
-	// 	2. set cur_tcb to use the priority of the highest priority in sleep queue
-	// 	3. when cur_tcb unlocks the mutex, we set the priority back
-	
+	  // part 2 stuff - PRIORITY INVERSION!!
+	  // 	1. find highest priority task in sleep queue
+	  // 	2. set cur_tcb to use the priority of the highest priority in sleep queue
+	  // 	3. when cur_tcb unlocks the mutex, we set the priority back
+  }
 
 	enable_interrupts();
 
@@ -139,7 +140,6 @@ int mutex_lock(int mutex  __attribute__((unused)))
  */
 int mutex_unlock(int mutex  __attribute__((unused)))
 {
-	disable_interrupts();
 
 	// check mutex id is valid
 	if(!(mutex >= 0 && mutex <= OS_NUM_MUTEX)){
@@ -147,6 +147,7 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 		return -EINVAL;
 	}
 
+	disable_interrupts();
 	mutex_t *cur_mutex = &(gtMutex[mutex]);
 
 	// check mutex has been created
@@ -165,13 +166,12 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 
 	// dissassociate current task from the mutex
 	cur_tcb->holds_lock = 0;
-	cur_tcb->sleep_queue = NULL;
 
 	// check if other tasks are waiting to use this mutex
 	// if so, change mutex ownership, update sleep queue and add task to run queue
 	if(cur_mutex->pSleep_queue != NULL){
 		cur_mutex->pHolding_Tcb = cur_mutex->pSleep_queue;
-		cur_mutex->pSleep_queue = cur_tcb->sleep_queue;
+		cur_mutex->pSleep_queue = cur_mutex->pSleep_queue->sleep_queue;
 		runqueue_add(cur_mutex->pHolding_Tcb, cur_mutex->pHolding_Tcb->cur_prio);
 	}	
 
