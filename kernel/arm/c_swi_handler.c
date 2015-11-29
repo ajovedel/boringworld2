@@ -55,6 +55,18 @@ unsigned c_swi_handler(unsigned SWI_number, unsigned *regs){
       return event_wait((unsigned)regs[0]);
       break;
 
+        case MUTEX_CREATE:
+            return mutex_create();
+            break;
+
+        case MUTEX_LOCK:
+            return mutex_lock((int)regs[0]);
+            break;
+
+        case MUTEX_UNLOCK:
+            return mutex_unlock((int)regs[0]);
+            break;
+
 		// unknown SWI code
 		default:
 			printf("Unknown SWI number\n");

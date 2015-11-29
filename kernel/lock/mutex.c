@@ -18,6 +18,7 @@
 #include <arm/psr.h>
 #include <arm/exception.h>
 #include <globals.h>
+#include <syscall.h>
 #ifdef DEBUG_MUTEX
 #include <exports.h> // temp
 #endif
