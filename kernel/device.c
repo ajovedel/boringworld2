@@ -38,7 +38,7 @@ struct dev
 typedef struct dev dev_t;
 
 /* devices will be periodically signaled at the following frequencies */
-const unsigned long dev_freq[NUM_DEVICES] = {200, 100, 500, 50};
+const unsigned long dev_freq[NUM_DEVICES] = {100, 200, 500, 50};
 static dev_t devices[NUM_DEVICES];
 
 /**
@@ -113,6 +113,7 @@ void dev_update(unsigned long millis)
           //  printf("Matched also\n");
       // We have a match
       tcb_q = devices[i].sleep_queue;
+      devices[i].sleep_queue = (tcb_t *)0;
       while(tcb_q)
       {
         //printf("There's tcb queue\n");
