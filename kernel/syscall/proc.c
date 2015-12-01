@@ -47,6 +47,8 @@ int task_create(task_t* tasks , size_t num_tasks )
     task_ptrs[i] = tasks + i;
   }
 
+  assign_schedule(task_ptrs, num_tasks);
+
   allocate_tasks(task_ptrs, num_tasks);
   dev_init();
 
