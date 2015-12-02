@@ -1,0 +1,1214 @@
+----------SIMPLE MUTEX----------
+GUM> go a3000000
+## Starting application at 0xA3000000 ...
+succeSs!
+
+
+
+----------MUTEX CHASER---------
+GUM> go a3000000
+## Starting application at 0xA3000000 ...
+TEST STARTING...
+Successfully created all the mutexes!!
+Yes!
+
+1>>mutex 1
+2>>mutex 1
+3>>mutex 1
+4>>mutex 1
+1>>mutex 2
+1>>mutex 3
+2>>mutex 2
+1>>mutex 4
+1>>mutex 5
+2>>mutex 3
+3>>mutex 2
+1>>mutex 6
+1>>mutex 7
+2>>mutex 4
+1>>mutex 8
+1>>mutex 9
+2>>mutex 5
+3>>mutex 3
+1>>mutex 10
+1>>mutex 11
+2>>mutex 6
+4>>mutex 2
+1>>mutex 12
+1>>mutex 13
+2>>mutex 7
+3>>mutex 4
+1>>mutex 14
+1>>mutex 15
+2>>mutex 8
+1>>mutex 16
+1>>mutex 17
+2>>mutex 9
+3>>mutex 5
+1>>mutex 18
+1>>mutex 19
+2>>mutex 10
+1>>mutex 20
+1>>mutex 21
+2>>mutex 11
+3>>mutex 6
+4>>mutex 3
+1>>mutex 22
+1>>mutex 23
+2>>mutex 12
+1>>mutex 24
+1>>mutex 25
+2>>mutex 13
+3>>mutex 7
+1>>mutex 26
+1>>mutex 27
+2>>mutex 14
+1>>mutex 28
+1>>mutex 29
+2>>mutex 15
+3>>mutex 8
+1>>mutex 30
+1>>mutex 31
+2>>mutex 16
+4>>mutex 4
+2>>mutex 17
+3>>mutex 9
+2>>mutex 18
+2>>mutex 19
+3>>mutex 10
+2>>mutex 20
+2>>mutex 21
+3>>mutex 11
+4>>mutex 5
+2>>mutex 22
+2>>mutex 23
+3>>mutex 12
+2>>mutex 24
+2>>mutex 25
+3>>mutex 13
+2>>mutex 26
+4>>mutex 6
+2>>mutex 27
+3>>mutex 14
+2>>mutex 28
+2>>mutex 29
+3>>mutex 15
+2>>mutex 30
+2>>mutex 31
+3>>mutex 16
+4>>mutex 7
+3>>mutex 17
+3>>mutex 18
+4>>mutex 8
+3>>mutex 19
+3>>mutex 20
+3>>mutex 21
+4>>mutex 9
+3>>mutex 22
+3>>mutex 23
+4>>mutex 10
+3>>mutex 24
+3>>mutex 25
+3>>mutex 26
+4>>mutex 11
+3>>mutex 27
+3>>mutex 28
+4>>mutex 12
+3>>mutex 29
+3>>mutex 30
+3>>mutex 31
+4>>mutex 13
+4>>mutex 14
+4>>mutex 15
+4>>mutex 16
+4>>mutex 17
+4>>mutex 18
+4>>mutex 19
+4>>mutex 20
+4>>mutex 21
+4>>mutex 22
+4>>mutex 23
+4>>mutex 24
+4>>mutex 25
+4>>mutex 26
+4>>mutex 27
+4>>mutex 28
+4>>mutex 29
+4>>mutex 30
+4>>mutex 31
+Final mutex0 value 2 == result value 624
+No!
+
+Final mutex1 value 624 == result value 624
+Yes!
+
+Final mutex2 value 624 == result value 624
+Yes!
+
+Final mutex3 value 624 == result value 624
+Yes!
+
+Final mutex4 value 624 == result value 624
+Yes!
+
+Final mutex5 value 624 == result value 624
+Yes!
+
+Final mutex6 value 624 == result value 624
+Yes!
+
+Final mutex7 value 624 == result value 624
+Yes!
+
+Final mutex8 value 624 == result value 624
+Yes!
+
+Final mutex9 value 624 == result value 624
+Yes!
+
+Final mutex10 value 624 == result value 624
+Yes!
+
+Final mutex11 value 624 == result value 624
+Yes!
+
+Final mutex12 value 624 == result value 624
+Yes!
+
+Final mutex13 value 624 == result value 624
+Yes!
+
+Final mutex14 value 624 == result value 624
+Yes!
+
+Final mutex15 value 624 == result value 624
+Yes!
+
+Final mutex16 value 624 == result value 624
+Yes!
+
+Final mutex17 value 624 == result value 624
+Yes!
+
+Final mutex18 value 624 == result value 624
+Yes!
+
+Final mutex19 value 624 == result value 624
+Yes!
+
+Final mutex20 value 624 == result value 624
+Yes!
+
+Final mutex21 value 624 == result value 624
+Yes!
+
+Final mutex22 value 624 == result value 624
+Yes!
+
+Final mutex23 value 624 == result value 624
+Yes!
+
+Final mutex24 value 624 == result value 624
+Yes!
+
+Final mutex25 value 624 == result value 624
+Yes!
+
+Final mutex26 value 624 == result value 624
+Yes!
+
+Final mutex27 value 624 == result value 624
+Yes!
+
+Final mutex28 value 624 == result value 624
+Yes!
+
+Final mutex29 value 624 == result value 624
+Yes!
+
+Final mutex30 value 624 == result value 624
+Yes!
+
+Final mutex31 value 624 == result value 624
+Yes!
+
+TEST PASSED SUCCESSFULLY!
+
+
+----------SYS ERR---------
+
+GUM> go a3000000
+## Starting application at 0xA3000000 ...
+TEST BEGIN!
+
+1. Test create return EINVAL
+        SUCCESS ****************
+
+2. Test create return EFAULT
+        SUCCESS ****************
+
+3. Mutex Create returns ENOMEM
+        SUCCESS ****************
+
+4. Mutex Unlock return EINVAL
+        SUCCESS ****************
+
+5. Mutex Unlock return EPERM
+        SUCCESS ****************
+
+6. Mutex Lock return EINVAL
+        SUCCESS ****************
+
+7. Mutex Lock return success
+        SUCCESS ****************
+
+8. Mutex Lock return EDEADLOCK
+        SUCCESS ****************
+
+9. Mutex Unlock return success
+        SUCCESS ****************
+
+10. Event Wait return EINVAL
+        SUCCESS ****************
+
+TEST END!
+
+
+
+----------CYCLONE---------
+
+
+
+GUM> go a3000000
+## Starting application at 0xA3000000 ...
+Test begin
+Time now is 10
+Time now is 20
+Time now is 50
+Time now is 100
+Time now is 140
+Time now is 200
+Time now is 270
+Time now is 350
+Time now is 440
+Time now is 550
+Time now is 660
+Time now is 780
+Time now is 910
+Time now is 1051
+Time now is 1201
+Time now is 1361
+Time now is 1531
+Time now is 1711
+Time now is 1901
+Time now is 2102
+Time now is 2312
+Time now is 2532
+Time now is 2762
+Time now is 3003
+Time now is 3253
+Time now is 3513
+Time now is 3783
+Time now is 4064
+Time now is 4354
+Time now is 4654
+Test ends!!
+
+----------STRESS---------
+
+GUM> go a3000000
+## Starting application at 0xA3000000 ...
+Test begins
+Time is now 0
+Time is now 0
+Time is now 0
+Time is now 0
+Time is now 0
+Time is now 0
+Time is now 10
+Time is now 10
+Time is now 20
+Time is now 30
+Time is now 40
+Time is now 50
+Time is now 60
+Time is now 70
+Time is now 90
+Time is now 100
+Time is now 100
+Time is now 120
+Time is now 130
+Time is now 150
+Time is now 170
+Time is now 180
+Time is now 200
+Time is now 200
+Time is now 210
+Time is now 230
+Time is now 250
+Time is now 270
+Time is now 300
+Time is now 300
+Time is now 300
+Time is now 320
+Time is now 350
+Time is now 380
+Time is now 400
+Time is now 400
+Time is now 400
+Time is now 400
+Time is now 440
+Time is now 460
+Time is now 500
+Time is now 500
+Time is now 500
+Time is now 530
+Time is now 570
+Time is now 600
+Time is now 600
+Time is now 600
+Time is now 600
+Time is now 600
+Time is now 640
+Time is now 670
+Time is now 700
+Time is now 700
+Time is now 710
+Time is now 750
+Time is now 790
+Time is now 800
+Time is now 800
+Time is now 800
+Time is now 800
+Time is now 830
+Time is now 870
+Time is now 900
+Time is now 900
+Time is now 900
+Time is now 910
+Time is now 960
+Time is now 1001
+Time is now 1001
+Time is now 1001
+Time is now 1001
+Time is now 1011
+Time is now 1061
+Time is now 1101
+Time is now 1101
+Time is now 1111
+Time is now 1151
+Time is now 1201
+Time is now 1201
+Time is now 1201
+Time is now 1201
+Time is now 1201
+Time is now 1211
+Time is now 1221
+Time is now 1271
+Time is now 1301
+Time is now 1301
+Time is now 1321
+Time is now 1371
+Time is now 1401
+Time is now 1401
+Time is now 1401
+Time is now 1401
+Time is now 1421
+Time is now 1471
+Time is now 1501
+Time is now 1501
+Time is now 1501
+Time is now 1501
+Time is now 1531
+Time is now 1581
+Time is now 1601
+Time is now 1601
+Time is now 1601
+Time is now 1601
+Time is now 1611
+Time is now 1641
+Time is now 1701
+Time is now 1701
+Time is now 1711
+One more time
+Time is now 1801
+Time is now 1801
+Time is now 1801
+Time is now 1801
+Time is now 1801
+Time is now 1811
+Time is now 1901
+Time is now 1901
+Time is now 2002
+Time is now 2002
+Time is now 2002
+Time is now 2002
+Time is now 2002
+Time is now 2012
+Time is now 2102
+Time is now 2102
+Time is now 2102
+Time is now 2102
+Time is now 2202
+Time is now 2202
+Time is now 2202
+Time is now 2212
+Time is now 2302
+Time is now 2302
+Time is now 2402
+Time is now 2402
+Time is now 2402
+Time is now 2402
+Time is now 2402
+Time is now 2412
+Time is now 2412
+Time is now 2422
+Time is now 2502
+Time is now 2502
+Time is now 2502
+Time is now 2602
+Time is now 2602
+Time is now 2602
+Time is now 2612
+Time is now 2702
+Time is now 2702
+Time is now 2702
+Time is now 2702
+Time is now 2802
+Time is now 2802
+Time is now 2802
+Time is now 2802
+Time is now 2812
+Time is now 2822
+Time is now 2902
+Time is now 2902
+Time is now 3003
+Time is now 3003
+Time is now 3003
+Time is now 3003
+Time is now 3003
+Time is now 3013
+Time is now 3023
+Time is now 3033
+Time is now 3103
+Time is now 3103
+Time is now 3203
+Time is now 3203
+Time is now 3203
+Time is now 3203
+Time is now 3213
+Time is now 3223
+Time is now 3303
+Time is now 3303
+Time is now 3303
+Time is now 3313
+Time is now 3403
+Time is now 3403
+Time is now 3403
+Time is now 3413
+Time is now 3503
+Time is now 3503
+Time is now 3503
+Time is now 3513
+Time is now 3603
+Time is now 3603
+Time is now 3603
+Time is now 3603
+Time is now 3603
+Time is now 3613
+Time is now 3613
+Time is now 3633
+Time is now 3643
+Time is now 3703
+Time is now 3703
+Time is now 3803
+Time is now 3803
+Time is now 3803
+Time is now 3813
+Time is now 3903
+Time is now 3903
+Time is now 3903
+Time is now 3913
+Time is now 4004
+Time is now 4004
+Time is now 4004
+Time is now 4004
+Time is now 4004
+Time is now 4014
+Time is now 4024
+Time is now 4044
+Time is now 4104
+Time is now 4104
+Time is now 4204
+Time is now 4204
+Time is now 4204
+Time is now 4204
+Time is now 4204
+Time is now 4214
+Time is now 4224
+Time is now 4244
+Time is now 4304
+Time is now 4304
+Time is now 4404
+Time is now 4404
+Time is now 4404
+Time is now 4404
+Time is now 4414
+Time is now 4434
+Time is now 4504
+Time is now 4504
+Time is now 4504
+Time is now 4504
+Time is now 4514
+Time is now 4524
+Time is now 4604
+Time is now 4604
+Time is now 4604
+Time is now 4624
+Time is now 4704
+Time is now 4704
+Time is now 4804
+Time is now 4804
+Time is now 4804
+Time is now 4804
+Time is now 4804
+Time is now 4814
+Time is now 4814
+Time is now 4824
+Time is now 4844
+Time is now 4864
+Time is now 4904
+Time is now 4904
+Time is now 4914
+Time is now 5005
+Time is now 5005
+Time is now 5005
+Time is now 5005
+Time is now 5015
+Time is now 5035
+Time is now 5105
+Time is now 5105
+Time is now 5105
+Time is now 5115
+Time is now 5205
+Time is now 5205
+Time is now 5205
+Time is now 5205
+Time is now 5215
+Time is now 5245
+Time is now 5305
+Time is now 5305
+Time is now 5405
+Time is now 5405
+Time is now 5405
+Time is now 5405
+Time is now 5405
+Time is now 5415
+Time is now 5435
+Time is now 5465
+Time is now 5505
+Time is now 5505
+Time is now 5505
+Time is now 5515
+Time is now 5605
+Time is now 5605
+Time is now 5605
+Time is now 5605
+Time is now 5615
+Time is now 5615
+Time is now 5635
+Time is now 5655
+Time is now 5705
+Time is now 5705
+Time is now 5705
+Time is now 5725
+Time is now 5805
+Time is now 5805
+Time is now 5805
+Time is now 5835
+Time is now 5905
+Time is now 5905
+Time is now 6006
+Time is now 6006
+Time is now 6006
+Time is now 6006
+Time is now 6006
+Time is now 6006
+Time is now 6016
+Time is now 6026
+Time is now 6036
+Time is now 6046
+Time is now 6066
+Time is now 6106
+Time is now 6206
+Time is now 6206
+Time is now 6206
+Time is now 6306
+Time is now 6306
+Time is now 6306
+Time is now 6306
+Time is now 6316
+Time is now 6406
+Time is now 6406
+Time is now 6406
+Time is now 6406
+Time is now 6416
+Time is now 6426
+Time is now 6506
+Time is now 6506
+Time is now 6506
+Time is now 6606
+Time is now 6606
+Time is now 6606
+Time is now 6606
+Time is now 6606
+Time is now 6616
+Time is now 6636
+Time is now 6706
+Time is now 6806
+Time is now 6806
+Time is now 6806
+Time is now 6806
+Time is now 6826
+Time is now 6906
+Time is now 6906
+Time is now 6906
+Time is now 7007
+Time is now 7007
+Time is now 7007
+Time is now 7007
+Time is now 7017
+Time is now 7017
+Time is now 7037
+Time is now 7107
+Time is now 7207
+Time is now 7207
+Time is now 7207
+Time is now 7207
+Time is now 7207
+Time is now 7217
+Time is now 7217
+Time is now 7227
+Time is now 7237
+Time is now 7257
+Time is now 7287
+Time is now 7307
+Time is now 7407
+Time is now 7407
+Time is now 7407
+Time is now 7507
+Time is now 7507
+Time is now 7507
+Time is now 7507
+Time is now 7527
+Time is now 7607
+Time is now 7607
+Time is now 7607
+Time is now 7607
+Time is now 7627
+Time is now 7707
+Time is now 7707
+Time is now 7707
+Time is now 7807
+Time is now 7807
+Time is now 7807
+Time is now 7807
+Time is now 7807
+Time is now 7827
+Time is now 7847
+Time is now 7907
+Time is now 8008
+Time is now 8008
+Time is now 8008
+Time is now 8008
+Time is now 8008
+Time is now 8018
+Time is now 8028
+Time is now 8038
+Time is now 8058
+Time is now 8108
+Time is now 8108
+Time is now 8108
+Time is now 8108
+Time is now 8208
+Time is now 8208
+Time is now 8208
+Time is now 8308
+Time is now 8408
+Time is now 8408
+Time is now 8408
+Time is now 8408
+Time is now 8408
+Time is now 8418
+Time is now 8418
+Time is now 8428
+Time is now 8448
+Time is now 8468
+Time is now 8488
+Time is now 8508
+Time is now 8508
+Time is now 8508
+Time is now 8608
+Time is now 8608
+Time is now 8608
+Time is now 8708
+Time is now 8708
+Time is now 8708
+Time is now 8808
+Time is now 8808
+Time is now 8808
+Time is now 8808
+Time is now 8818
+Time is now 8828
+Time is now 8848
+Time is now 8908
+Time is now 9009
+Time is now 9009
+Time is now 9009
+Time is now 9009
+Time is now 9009
+Time is now 9019
+Time is now 9029
+Time is now 9029
+Time is now 9049
+Time is now 9069
+Time is now 9099
+Time is now 9109
+Time is now 9109
+Time is now 9109
+One more time
+Time is now 9209
+Time is now 9209
+Time is now 9209
+Time is now 9209
+Time is now 9229
+Time is now 9309
+Time is now 9309
+Time is now 9309
+Time is now 9409
+Time is now 9409
+Time is now 9409
+Time is now 9509
+Time is now 9509
+Time is now 9509
+Time is now 9609
+Time is now 9609
+Time is now 9609
+Time is now 9609
+Time is now 9609
+Time is now 9619
+Time is now 9619
+Time is now 9629
+Time is now 9649
+Time is now 9669
+Time is now 9699
+Time is now 9709
+Time is now 9809
+Time is now 9809
+Time is now 9809
+Time is now 9809
+Time is now 9829
+Time is now 9909
+Time is now 9909
+Time is now 9909
+Time is now 9919
+Time is now 9929
+Time is now 10000
+Time is now 10000
+Time is now 10000
+Time is now 10000
+Time is now 10000
+Time is now 10010
+Time is now 10030
+Time is now 10060
+Time is now 10100
+Time is now 10200
+Time is now 10200
+Time is now 10200
+Time is now 10200
+Time is now 10200
+Time is now 10220
+Time is now 10250
+Time is now 10300
+Time is now 10400
+Time is now 10400
+Time is now 10400
+Time is now 10400
+Time is now 10410
+Time is now 10420
+Time is now 10450
+Time is now 10500
+Time is now 10500
+Time is now 10500
+Time is now 10500
+Time is now 10510
+Time is now 10520
+Time is now 10540
+Time is now 10600
+Time is now 10600
+Time is now 10600
+Time is now 10700
+Time is now 10800
+Time is now 10800
+Time is now 10800
+Time is now 10800
+Time is now 10800
+Time is now 10810
+Time is now 10820
+Time is now 10830
+Time is now 10840
+Time is now 10870
+Time is now 10900
+Time is now 10900
+Time is now 11001
+Time is now 11001
+Time is now 11001
+Time is now 11001
+Time is now 11011
+Time is now 11021
+Time is now 11041
+Time is now 11101
+Time is now 11101
+Time is now 11101
+Time is now 11201
+Time is now 11201
+Time is now 11201
+Time is now 11201
+Time is now 11211
+Time is now 11211
+Time is now 11231
+Time is now 11241
+Time is now 11271
+Time is now 11301
+Time is now 11401
+Time is now 11401
+Time is now 11401
+Time is now 11401
+Time is now 11401
+Time is now 11421
+Time is now 11461
+Time is now 11501
+Time is now 11501
+Time is now 11501
+Time is now 11601
+Time is now 11601
+Time is now 11601
+Time is now 11601
+Time is now 11631
+Time is now 11701
+Time is now 11701
+Time is now 11701
+Time is now 11711
+Time is now 11721
+Time is now 11801
+Time is now 11801
+Time is now 11801
+Time is now 11901
+Time is now 11901
+Time is now 11901
+Time is now 12002
+Time is now 12002
+Time is now 12002
+Time is now 12002
+Time is now 12002
+Time is now 12012
+Time is now 12012
+Time is now 12022
+Time is now 12032
+Time is now 12042
+Time is now 12052
+Time is now 12072
+Time is now 12092
+Time is now 12102
+Time is now 12102
+Time is now 12122
+Time is now 12202
+Time is now 12202
+Time is now 12302
+Time is now 12302
+Time is now 12302
+Time is now 12402
+Time is now 12402
+Time is now 12402
+Time is now 12402
+Time is now 12502
+Time is now 12502
+Time is now 12502
+Time is now 12602
+Time is now 12602
+Time is now 12602
+Time is now 12602
+Time is now 12602
+Time is now 12612
+Time is now 12622
+Time is now 12632
+Time is now 12652
+Time is now 12672
+Time is now 12702
+Time is now 12802
+Time is now 12802
+Time is now 12802
+Time is now 12802
+Time is now 12812
+Time is now 12822
+Time is now 12902
+Time is now 12902
+Time is now 12902
+Time is now 13003
+Time is now 13003
+Time is now 13003
+Time is now 13003
+Time is now 13013
+Time is now 13023
+Time is now 13103
+Time is now 13203
+Time is now 13203
+Time is now 13203
+Time is now 13203
+Time is now 13203
+Time is now 13213
+Time is now 13223
+Time is now 13233
+Time is now 13253
+Time is now 13283
+Time is now 13303
+Time is now 13303
+Time is now 13303
+Time is now 13403
+Time is now 13403
+Time is now 13503
+Time is now 13503
+Time is now 13503
+Time is now 13503
+Time is now 13513
+Time is now 13523
+Time is now 13553
+Time is now 13603
+Time is now 13603
+Time is now 13603
+Time is now 13603
+Time is now 13613
+Time is now 13623
+Time is now 13703
+Time is now 13803
+Time is now 13803
+Time is now 13803
+Time is now 13803
+Time is now 13803
+Time is now 13833
+Time is now 13903
+Time is now 14004
+Time is now 14004
+Time is now 14004
+Time is now 14004
+Time is now 14004
+Time is now 14014
+Time is now 14024
+Time is now 14034
+Time is now 14054
+Time is now 14084
+Time is now 14104
+Time is now 14104
+Time is now 14114
+Time is now 14204
+Time is now 14204
+Time is now 14304
+Time is now 14304
+Time is now 14304
+Time is now 14404
+Time is now 14404
+Time is now 14404
+Time is now 14404
+Time is now 14404
+Time is now 14414
+Time is now 14414
+Time is now 14424
+Time is now 14434
+Time is now 14454
+Time is now 14464
+Time is now 14494
+Time is now 14504
+Time is now 14504
+Time is now 14504
+Time is now 14534
+Time is now 14604
+Time is now 14604
+Time is now 14704
+Time is now 14704
+Time is now 14704
+Time is now 14704
+Time is now 14724
+Time is now 14804
+Time is now 14804
+Time is now 14804
+Time is now 14804
+Time is now 14904
+Time is now 15005
+Time is now 15005
+Time is now 15005
+Time is now 15005
+Time is now 15005
+Time is now 15015
+Time is now 15015
+Time is now 15035
+Time is now 15055
+Time is now 15085
+Time is now 15105
+Time is now 15205
+Time is now 15205
+Time is now 15205
+Time is now 15205
+Time is now 15205
+Time is now 15225
+Time is now 15305
+Time is now 15305
+Time is now 15305
+Time is now 15305
+Time is now 15325
+Time is now 15405
+Time is now 15405
+Time is now 15405
+Time is now 15405
+Time is now 15415
+Time is now 15435
+Time is now 15505
+Time is now 15505
+Time is now 15505
+Time is now 15605
+Time is now 15605
+Time is now 15605
+Time is now 15605
+Time is now 15605
+Time is now 15615
+Time is now 15625
+Time is now 15635
+Time is now 15665
+Time is now 15695
+Time is now 15705
+Time is now 15805
+Time is now 15805
+Time is now 15905
+Time is now 15905
+Time is now 15905
+Time is now 16006
+Time is now 16006
+Time is now 16006
+Time is now 16006
+Time is now 16006
+Time is now 16016
+Time is now 16026
+Time is now 16036
+Time is now 16056
+Time is now 16086
+Time is now 16106
+Time is now 16106
+Time is now 16106
+Time is now 16206
+Time is now 16206
+Time is now 16206
+Time is now 16206
+Time is now 16206
+Time is now 16216
+Time is now 16236
+Time is now 16256
+Time is now 16306
+Time is now 16406
+Time is now 16406
+Time is now 16406
+Time is now 16406
+Time is now 16506
+Time is now 16506
+Time is now 16506
+Time is now 16506
+Time is now 16516
+Time is now 16536
+Time is now 16566
+Time is now 16606
+Time is now 16606
+Time is now 16706
+Time is now 16806
+Time is now 16806
+Time is now 16806
+Time is now 16806
+Time is now 16806
+Time is now 16816
+Time is now 16816
+Time is now 16826
+Time is now 16836
+Time is now 16856
+Time is now 16876
+Time is now 16896
+Time is now 16906
+Time is now 16906
+Time is now 16916
+Time is now 16956
+Time is now 17007
+Time is now 17007
+Time is now 17007
+Time is now 17007
+Time is now 17017
+Time is now 17037
+Time is now 17107
+Time is now 17107
+Time is now 17107
+Time is now 17117
+Time is now 17127
+Time is now 17207
+Time is now 17207
+Time is now 17207
+Time is now 17207
+Time is now 17307
+Time is now 17407
+Time is now 17407
+Time is now 17407
+Time is now 17407
+Time is now 17407
+Time is now 17437
+Time is now 17507
+Time is now 17507
+Time is now 17507
+Time is now 17517
+Time is now 17537
+Time is now 17607
+Time is now 17607
+Time is now 17607
+Time is now 17607
+Time is now 17617
+Time is now 17627
+Time is now 17637
+Time is now 17657
+Time is now 17707
+Time is now 17707
+Time is now 17707
+Time is now 17807
+Time is now 17807
+Time is now 17907
+Time is now 18008
+Time is now 18008
+Time is now 18008
+Time is now 18008
+Time is now 18008
+Time is now 18018
+Time is now 18018
+Time is now 18028
+Time is now 18038
+Time is now 18048
+Time is now 18058
+Time is now 18078
+Time is now 18098
+Time is now 18108
+Time is now 18128
+Time is now 18158
+Time is now 18208
+Time is now 18208
+Time is now 18208
+Time is now 18208
+Time is now 18228
+Time is now 18238
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+
