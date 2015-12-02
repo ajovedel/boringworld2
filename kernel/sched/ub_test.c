@@ -27,11 +27,25 @@
  * @return 0  The test failed.
  * @return 1  Test succeeded.  The tasks are now in order.
  */
-int assign_schedule(task_t** tasks, size_t num_tasks)
+int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-  
+    
+    unsigned i, j;
+    task_t temp_task;
 
-	return 1; // fix this; dummy return to prevent compiler warnings	
+    // basic sort that orders that swaps the task and places them from 
+    // the lowest period (T) to the highest.
+    for(i=0; i<num_tasks; i++){
+        for(j=(i+1); j<num_tasks; j++){
+            if((*tasks)[i].T > (*tasks)[j].T){
+                temp_task = (*tasks)[i];
+                (*tasks)[i] = (*tasks)[j];
+                (*tasks)[j] = temp_task;
+            }
+        }
+    }     
+                
+	return 1;	
 }
 	
 
