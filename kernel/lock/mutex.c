@@ -84,15 +84,8 @@ int mutex_lock(int mutex  __attribute__((unused)))
 	}
 
   disable_interrupts();
-
-	mutex_t *cur_mutex = &(gtMutex[mutex]);
-
-	// check if mutex has been created before
-	/*if(cur_mutex->bAvailable == 1){
-		enable_interrupts();
-		return -EINVAL;
-	}*/
-
+	
+  mutex_t *cur_mutex = &(gtMutex[mutex]);
 	tcb_t *cur_tcb = get_cur_tcb();
 
 	// check that the current task NOT holding the lock already
@@ -162,13 +155,6 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 
 	disable_interrupts();
 	mutex_t *cur_mutex = &(gtMutex[mutex]);
-
-	// check mutex has been created
-	/*if(cur_mutex->bAvailable == 0){
-		enable_interrupts();
-		return -EINVAL;
-	}*/
-
 	tcb_t *cur_tcb = get_cur_tcb();
 
 	// check current task is holding the lock

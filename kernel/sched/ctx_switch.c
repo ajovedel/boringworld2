@@ -19,7 +19,7 @@
 #include <exports.h>
 #endif
 
-static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
+static tcb_t* cur_tcb; /* use this if needed */
 
 /**
  * @brief Initialize the current TCB and priority.
@@ -89,14 +89,6 @@ void dispatch_sleep(void)
   
   cur_tcb = next_task;
   
-  //printf("Current task, prio:%d\n",tmp_task->cur_prio);
-  //printf("next task, prio:%d\n",cur_tcb->cur_prio);
-
-//  printf("Next task, r4 is: 0x%x\n",cur_tcb->context.r4);
-//  printf("Next task, lr is: 0x%x\n",(uint32_t)cur_tcb->context.lr);
-
-  //printf("Context switching fullll\n");
-
   ctx_switch_full(&(next_task->context), &(tmp_task->context));
 	
 }
@@ -106,7 +98,6 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
-  //printf("Current prio is :%d\n",cur_tcb->cur_prio);
   return cur_tcb->cur_prio;
 }
 

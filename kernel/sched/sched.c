@@ -52,7 +52,6 @@ void initialize_idle()
   idle_ctx->r10 = 0;
   idle_ctx->r11 = 0;
   idle_ctx->sp = ((char *)(idle_tcb->kstack) + OS_KSTACK_SIZE);
-  //XXX What about using kstack_high ??
   idle_ctx->lr = (void *)launch_task;
   
   idle_tcb->holds_lock = 0;
@@ -78,7 +77,6 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
   size_t i = 0;
   for(; i < num_tasks; i++)
   {
-    //XXX Check lamda and others for valid address ranges
     tcb_t *task_tcb = &(system_tcb[i]);
     task_tcb->native_prio = i;
     task_tcb->cur_prio = i;  

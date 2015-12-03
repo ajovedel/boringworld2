@@ -45,7 +45,7 @@ int task_create(task_t* tasks , size_t num_tasks )
 
   task_t **task_ptrs = malloc(num_tasks * sizeof(task_t*));
   if(!task_ptrs)
-    return -EFAULT; // XXX Some different error ??
+    return -EFAULT; 
 
   size_t i = 0;
   for(; i < num_tasks; i++)
@@ -53,6 +53,7 @@ int task_create(task_t* tasks , size_t num_tasks )
     task_ptrs[i] = tasks + i;
   }
 
+  // Sort the tasks
   assign_schedule(task_ptrs, num_tasks);
 
   allocate_tasks(task_ptrs, num_tasks);
@@ -79,7 +80,6 @@ int event_wait(unsigned int dev)
     return -EINVAL;
 
   dev_wait(dev);
-  //printf("Resuming from event wait on device %d\n",dev);
   return 0;
 }
 

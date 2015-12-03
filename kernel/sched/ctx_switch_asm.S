@@ -30,7 +30,7 @@ FUNC(launch_task)
 	mov     r2, #0
 	mov     r3, #0
 	mov     r5, #0
-	@mov     r8, #0
+	mov     r8, #0
 	mov     ip, #0
 	msr     cpsr_c, #(PSR_MODE_USR)
 	mov     sp, r6
