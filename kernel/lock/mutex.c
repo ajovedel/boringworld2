@@ -3,10 +3,10 @@
  *
  * @brief Implements mutices.
  *
- * @author Harry Q Bovik < PUT YOUR NAMES HERE
+ * @author Alejandro Jove (ajovedel)
+ * @author Vishnu Gorantla (vishnupg)
  *
  * 
- * @date  
  */
 
 //#define DEBUG_MUTEX
@@ -41,7 +41,9 @@ void mutex_init()
 }
 
 /*
- * @brief Acquire next available mutex
+ * @brief Acquire the next available mutex
+ *
+ * @return The status code
  */
 int mutex_create(void)
 {
@@ -68,6 +70,10 @@ int mutex_create(void)
 
 /*
  * @brief Lock the indicated mutex
+ *
+ * @param mutex - muted ID of the mutex that is attempting to be locked
+ *
+ * @return The status code
  */
 int mutex_lock(int mutex  __attribute__((unused)))
 {
@@ -140,6 +146,10 @@ int mutex_lock(int mutex  __attribute__((unused)))
 
 /*
  * @brief Unlock the indicated mutex
+ *
+ * @param mutex - mutex ID of the mutex that is trying to be unlocked
+ *
+ * @return The status code
  */
 int mutex_unlock(int mutex  __attribute__((unused)))
 {

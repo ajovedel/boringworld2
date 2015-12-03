@@ -2,8 +2,9 @@
  * 
  * @brief The UB Test for basic schedulability
  *
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-11-20
+ * @author Alejandro Jove (ajovedel)
+ * @author Vishnu Gorantla (vishnupg)
+ *
  */
 
 //#define DEBUG 0

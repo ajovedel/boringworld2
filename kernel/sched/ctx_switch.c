@@ -2,8 +2,9 @@
  * 
  * @brief C wrappers around assembly context switch routines.
  *
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-11-21
+ * @author Alejandro Jove (ajovedel)
+ * @author Vishnu Gorantla (vishnupg)
+ *
  */
  
 

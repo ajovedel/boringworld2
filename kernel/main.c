@@ -2,10 +2,9 @@
  *
  * @brief kernel main
  *
- * @author 
+ * @author Alejandro Jove (ajovedel)
+ * @author Vishnu Gorantla (vishnupg) 
  *	   
- *	   
- * @date   
  */
  
 #include <kernel.h>

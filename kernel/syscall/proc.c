@@ -2,11 +2,9 @@
  * 
  * @brief Implementation of `process' syscalls
  *
- * @author Mike Kasick <mkasick@andrew.cmu.edu>
- * @date   Sun, 14 Oct 2007 00:07:38 -0400
+ * @author Alejandro Jove (ajovedel)
+ * @author Vishnu Gorantla (vishnupg)
  *
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-11-12
  */
 
 #include <exports.h>
@@ -22,6 +20,14 @@
 #include <arm/physmem.h>
 #include <device.h>
 
+/*
+ * @brief Allocates the tasks and initiates the execution of tasks
+ *
+ * @param tasks List of tasks to execute
+ * @param num_tasks number of tasks in the task list
+ *
+ * return Status code
+ */
 int task_create(task_t* tasks , size_t num_tasks )
 {
   if(num_tasks > OS_AVAIL_TASKS)
@@ -54,9 +60,17 @@ int task_create(task_t* tasks , size_t num_tasks )
 
   dispatch_nosave();
   
-  return 1; /* remove this line after adding your code */
+  return 1;
 }
 
+
+/*
+ * @brief Causes a task to be suspended until an event puts it back in the run queue
+ *
+ * @param dev Device number of the task
+ *
+ * @return Status code
+ */
 int event_wait(unsigned int dev)
 {
   //printf("Inside event wait on device %d\n", dev);

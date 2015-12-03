@@ -15,6 +15,9 @@
 #include <globals.h>
 
 
+/*
+ * @brief Returns the uptime of the kernel in miliseconds
+ */
 unsigned long time(void)
 {
 	return (TIME_UNITS_ELAPSED * TIME_RES_MS +
