@@ -74,8 +74,8 @@ void initialize_idle()
  */
 void allocate_tasks(task_t** tasks, size_t num_tasks)
 {
-  size_t i = 0;
-  for(; i < num_tasks; i++)
+  size_t i = 1;
+  for(; i <= num_tasks; i++)
   {
     tcb_t *task_tcb = &(system_tcb[i]);
     task_tcb->native_prio = i;
@@ -83,10 +83,10 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
 
     // Context
     sched_context_t *ctx = &(task_tcb->context);
-    ctx->r4 = (uint32_t) (tasks[i]->lambda);
+    ctx->r4 = (uint32_t) (tasks[i-1]->lambda);
 
-    ctx->r5 = (uint32_t) (tasks[i]->data);
-    ctx->r6 = (uint32_t) (tasks[i]->stack_pos);
+    ctx->r5 = (uint32_t) (tasks[i-1]->data);
+    ctx->r6 = (uint32_t) (tasks[i-1]->stack_pos);
     ctx->r8 = global_data;
     ctx->sp = ((char *)(task_tcb->kstack) + OS_KSTACK_SIZE);
     // Easy way to launch task fo first time
@@ -109,4 +109,5 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
   dispatch_init(&(system_tcb[IDLE_PRIO]));
   
 }
+
 

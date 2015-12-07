@@ -121,15 +121,16 @@ int mutex_lock(int mutex  __attribute__((unused)))
   {
 	  // other tasks do not have this mutex
 	  // we can acquire this mutex for the current tcb
-	  cur_mutex->bLock = 1;
-		cur_tcb->sleep_queue = NULL;
-	  cur_mutex->pHolding_Tcb = cur_tcb;
-	  cur_tcb->holds_lock = 1;	//do i need to set holds_lock? what for?
+        cur_mutex->bLock = 1;
+        cur_tcb->sleep_queue = NULL;
+        cur_mutex->pHolding_Tcb = cur_tcb;
 
-	  // part 2 stuff - PRIORITY INVERSION!!
-	  // 	1. find highest priority task in sleep queue
-	  // 	2. set cur_tcb to use the priority of the highest priority in sleep queue
-	  // 	3. when cur_tcb unlocks the mutex, we set the priority back
+        // task holds a new mutex
+        cur_tcb->holds_lock++;
+        
+        // we raise the priority to the highest priority as soon as a tcb
+        // acquires a mutex. (HLP) 
+        cur_tcb->cur_prio = 0;
   }
 
 	enable_interrupts();
@@ -163,8 +164,6 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 		return -EPERM;
 	}
 
-	// dissassociate current task from the mutex
-	cur_tcb->holds_lock = 0;
 
 	// check if other tasks are waiting to use this mutex
 	// if so, change mutex ownership, update sleep queue and add task to run queue
@@ -179,10 +178,14 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 		cur_mutex->pHolding_Tcb = NULL;
 		cur_mutex->bLock = 0;
 	}
-	
-	// part 2 stuff - PRIORIY INVERSION!!
-	// need to set back the native priority of the task
-	// (in case it was using priority inversion)
+
+	// remove 1 mutex counter
+	cur_tcb->holds_lock--;
+
+    // if the task holds no other mutex, we set the priority
+    // back to its native priority (HLP)
+    if(cur_tcb->holds_lock == 0)
+        cur_tcb->cur_prio = cur_tcb->native_prio;    
 
 	enable_interrupts();
 
