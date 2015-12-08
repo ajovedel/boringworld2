@@ -101,7 +101,7 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
   runqueue_init();
   
   runqueue_add(&(system_tcb[IDLE_PRIO]), IDLE_PRIO);
-  for(i=0; i < num_tasks; i++)
+  for(i=1; i <= num_tasks; i++)
   {
     runqueue_add(&(system_tcb[i]), i);
   }

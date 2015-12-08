@@ -13,6 +13,7 @@
 #include <kernel.h>
 #include <syscall.h>
 #include <sched.h>
+#include <lock.h>
 
 #include <arm/reg.h>
 #include <arm/psr.h>
@@ -74,16 +75,20 @@ int task_create(task_t* tasks , size_t num_tasks )
  */
 int event_wait(unsigned int dev)
 {
-  tcb_t* cur_tcb = get_cur_tcb();
 
   //printf("Inside event wait on device %d\n", dev);
   disable_interrupts();
   if(dev > NUM_DEVICES)
     return -EINVAL;
-  
-  // if the task holds a mutex, it CANNOT wait
-  if(cur_tcb->holds_lock !=0)
-    return -EHOLDSLOCK;
+ 
+
+  if (HLP)
+  {
+    tcb_t* cur_tcb = get_cur_tcb();
+    // if the task holds a mutex, it CANNOT wait
+    if(cur_tcb->holds_lock !=0)
+      return -EHOLDSLOCK;
+  }
 
   dev_wait(dev);
   return 0;
